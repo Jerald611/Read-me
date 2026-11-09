@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story Together ♥</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fdf8f5;
+            --card: #ffffff;
+            --rose: #d48c94;
+            --deep: #8c4a52;
+            --text: #3d3133;
+            --muted: #7a6a6c;
+            --border: #e6d2c5;
+            --blush: #f9ecec;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            padding: 35px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        .eyebrow {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--rose);
+            margin-bottom: 8px;
+        }
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--deep);
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .days-badge {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 6px 18px;
+            background: var(--blush);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            font-size: 0.82rem;
+            color: var(--deep);
+            font-weight: 500;
+        }
+
+        /* Add Memory Controls */
+        .upload-bar {
+            margin-bottom: 28px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            background: var(--deep);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .btn:hover {
+            background: var(--rose);
+            transform: translateY(-2px);
+        }
+        #photo-input {
+            display: none;
+        }
+
+        /* Polaroid Photo Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 24px;
+            max-width: 980px;
+            width: 100%;
+        }
+        .polaroid {
+            background: var(--card);
+            padding: 14px 14px 22px 14px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(140, 74, 82, 0.1);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .polaroid:hover {
+            transform: translateY(-5px);
+        }
+        .img-box {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--blush);
+        }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            display: block;
+        }
+        /* Hidden Note Overlay when tapped */
+        .secret-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(140, 74, 82, 0.9);
+            color: #ffffff;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.75rem;
+            line-height: 1.5;
+        }
+        .polaroid.revealed .secret-overlay {
+            opacity: 1;
+        }
+        .caption-area {
+            margin-top: 14px;
+            text-align: center;
+        }
+        .memory-date {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--rose);
+        }
+        .memory-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            color: var(--deep);
+            margin-top: 3px;
+        }
+        .tap-tip {
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+        
+        .hidden-box {
+            width: 100%;
+            background: #8c4a52;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .hidden-box.show {
+        background: #d48c94;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="eyebrow">This is my little peace offering for you</div>
+        <h1>Mr. Heinrich Ambrona "Yasho Cutiee"♥</h1>
+        <p class="subtitle">I know nakakasawa na ang sorry ko but still I want to say sorry. Sorry dahil hindi kita kinausap kagabi, sorry dahil nasaktan kita, sorry sa lahat ng pagkukulang ko. Sorry talaga...</p>
+        <div class="days-badge">It's been 5 months since our first talk.</div>
+    </header>
+
+    <!-- Photo Gallery -->
+    <main class="gallery" id="gallery-grid">
+        
+        <!-- Photo 1 -->
+        <div class="polaroid" onclick="this.classList.toggle('revealed')">
+            <div class="img-box">
+                <img src="48205.jpg" alt="Memory 1">
+                <div class="secret-overlay">
+                    "I always admire your cute face, sobrang pogi. Kaya lagi akong nag sscreenshot ng hindi mo nalalaman. Idk basta I like to see your face always pagpasensyahan mo na. ♥"
+                </div>
+            </div>
+            <div class="caption-area">
+                <div class="memory-date">Aethetic Warning!!!</div>
+                <div class="memory-title">Sorry sa Picture pero cute ka dito e</div>
+                <div class="tap-tip">Tap photo to reveal message</div>
+            </div>
+        </div>
+
+        <!-- Photo 2 -->
+        <div class="polaroid" onclick="this.classList.toggle('revealed')">
+            <div class="img-box">
+                <img src="48178.jpg" alt="Memory 2">
+                <div class="secret-overlay">
+                    "I always overthink dahil sa mga nangyari pero salamat sa lagi mong pag intindi at pag uupdate. Sobrang importante yon saakin dahil minsan hindi maiwasan mag-isip. I'm sorry pero binabago ko naman ito dahil ayoko na balang araw mapagod ka saakin :( "
+                </div>
+            </div>
+            <div class="caption-area">
+                <div class="memory-date">Di talaga nawawala yang dila nya</div>
+                <div class="memory-title">Basta pogi ka d2</div>
+                <div class="tap-tip">Tap photo to reveal message</div>
+            </div>
+        </div>
+
+        <!-- Photo 3 -->
+        <div class="polaroid" onclick="this.classList.toggle('revealed')">
+            <div class="img-box">
+                <img src="48202.jpg" alt="Memory 3">
+                <div class="secret-overlay">
+                    "Ito yung araw na hindi ko makakalimutan, may screen record ako nito kaso walang sound hahahahah. Anyway sobrang saya nitong araw na ito kahit walang nakaalala ng bday ko okay lang kasi nandyan ka at sinamahan moko. Naalala ko before ako mag bday nagka away pa tayo non kasi nalulungkot ako walang iba naka alala sakin hahaha sorry ulit. ♥"
+                </div>
+            </div>
+            <div class="caption-area">
+                <div class="memory-date">"yasho singing happy bday to me"</div>
+                <div class="memory-title">Sobrang saya natin dito pareho</div>
+                <div class="tap-tip">Tap photo to reveal message</div>
+            </div>
+        </div>
+        </div>
+        <p>Hello Baby, I'm sorry dahil nagkukulang ako minsan. Ayoko na nasasaktan kita kaya sana bigyan mo pa ako ng chance, sana hindi ka magsawa sa pag intindi saakin. Sorry dahil binibigyan kita ng silent treatment lalo na kapag nagagalit ako. Sobrang na giguilty ako sa mga nagawa ko. Alam kong mali ako kaya sorry talaga. Gagawin ko ang lahat para makabawi sayo dahil ayoko na mawala ka sakin. Ayoko na nakikita kang umiiyak lalo na ako ang dahilan. Sorry po mahal na mahal kita :( </p>
+    </main>
+
+    <script>
+        // Optional: Set your anniversary date (YYYY-MM-DD) to auto-count days together
+        const startDate = new Date("2024-01-01"); 
+        const today = new Date();
+        const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        if (!isNaN(diffDays) && diffDays >= 0) {
+            document.getElementById("days-counter").innerText = `${diffDays} Days of Loving You ♥`;
+        }
+
+        // Upload a photo directly from your device without editing code
+        function addNewPhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const title = prompt("Give this photo a short title:", "Our Special Moment") || "Our Special Moment";
+            const note = prompt("Write a hidden love note for this photo:", "I love this memory with you! ♥") || "I love this memory with you! ♥";
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const card = document.createElement("div");
+                card.className = "polaroid";
+                card.onclick = function() { this.classList.toggle("revealed"); };
+
+                card.innerHTML = `
+                    <div class="img-box">
+                        <img src="${e.target.result}" alt="${title}">
+                        <div class="secret-overlay">"${note}"</div>
+                    </div>
+                    <div class="caption-area">
+                        <div class="memory-date">New Memory</div>
+                        <div class="memory-title">${title}</div>
+                        <div class="tap-tip">Tap photo to flip note</div>
+                    </div>
+                `;
+                document.getElementById("gallery-grid").prepend(card);
+            };
+            reader.readAsDataURL(file);
+    </script>
+
+</body>
+</html>
