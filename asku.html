@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mwehehehe</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            height: 80px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, font-size 0.2s ease, padding 0.2s ease, left 0.2s ease, top 0.2s ease;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            z-index: 2;
+        }
+
+        #yesBtn:hover {
+            background-color: #e63956;
+        }
+
+        #noBtn {
+            background-color: #e0e0e0;
+            color: #333;
+            position: relative;
+        }
+
+        /* Floating background hearts */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background floating hearts generator container -->
+    <div id="hearts-container"></div>
+
+    <div class="container" id="card">
+        <div id="content">
+            <h1>Mag i-ml ba tayong dalawa mamaya?🌹</h1>
+            <p id="questionText">Parang gusto ko na mag ml tayo mamaya. What do you think baby?</p>
+            <div class="buttons">
+                <button id="yesBtn" onclick="sayYes()">Sige! hehe🥰</button>
+                <button id="noBtn" onmouseover="handleNo()" onclick="handleNo()">No! wag na😢</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of looping messages for when she tries to click "No"
+        const noMessages = [
+            "no pls 😢",
+            "sigurado ka? 🥺",
+            "pag isipan mo naman muna! 💭",
+            "aray ko naman! 💔",
+            "naiiyak nako! 😭",
+            "Give me a chance! ✨",
+            "please? 🌹",
+            "Okay, sigeee... just click Yes! 🤭"
+        ];
+
+        let messageIndex = 0;
+        let yesButtonScale = 1;
+
+        function handleNo() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const questionText = document.getElementById('questionText');
+
+            // Cycle through the messages
+            messageIndex = (messageIndex + 1) % noMessages.length;
+            noBtn.innerText = noMessages[messageIndex];
+
+            // Change subtitle text to match the playful stubbornness
+            if (messageIndex === 1) questionText.innerText = "Wait, are you actually clicking no?! 🥺";
+            if (messageIndex === 3) questionText.innerText = "My heart can't take this! Choose wisely... 💘";
+            if (messageIndex === 7) questionText.innerText = "Resistance is futile, the Yes button is too powerful now! 😂";
+
+            // Make the "Yes" button grow bigger every time she tries to click No
+            yesButtonScale += 0.15;
+            yesBtn.style.transform = `scale(${yesButtonScale})`;
+
+            // Make the "No" button jump only a short distance away from its current spot
+            const randomX = (Math.random() - 0.5) * 160; // hops between -80px and +80px horizontally
+            const randomY = (Math.random() - 0.5) * 100; // hops between -50px and +50px vertically
+            
+            noBtn.style.position = 'relative';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        }
+
+        // Action when she finally clicks "Yes!"
+        function sayYes() {
+            const card = document.getElementById('content');
+            card.innerHTML = `
+                <h1 style="color: #ff4d6d;">Yaaay! Best decision ever! 🎉💖</h1>
+                <p>Yeyyyy!!! Sabi na eh mag o-Oo ka hehehehe🥰✨</p>
+                <div style="font-size: 50px; margin-top: 20px;">🌹🍾🍫</div>
+            `;
+        }
+
+        // Create background floating hearts automatically
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.getElementById('hearts-container').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
